@@ -10,7 +10,9 @@ makeSet.setPrototype.add = function(value){
   if (!this._storage){
     this._storage = [];
   }
-  this._storage.push(value);
+  if(!this.contains(value)){
+    this._storage.push(value);
+  }
 };
 
 /*

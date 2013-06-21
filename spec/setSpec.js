@@ -17,9 +17,24 @@ describe("set", function() {
 
   it("should be able to add a string to the set", function(){
     set.add('Toyota');
-    console.log(set._storage);
     expect(set.contains('Toyota')).toBe(true);
   });
+
+  it("should be able to add a function", function(){
+    var func1 = function(x){return 2*x;};
+    var func2 = function(x){return 2*x;};
+    set.add(func1);
+    expect(set.contains(func1)).toBe(true);
+    expect(set.contains(function(x){return 2*x;})).toBe(true);
+  });
+
+  it("shouldn't add a value if it's already in the set", function(){
+    set.add('Miata');
+    set.add('Miata');
+    expect(set._storage.length).toEqual(1);
+  });
+
+
   //
   //
   //
