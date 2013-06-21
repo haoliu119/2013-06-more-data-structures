@@ -33,32 +33,24 @@ makeSet.setPrototype.contains = function(target){
   }, false, this);
 };
 
-makeSet.setPrototype.remove = function(){
+makeSet.setPrototype.remove = function(target){
+  var targetIndex = superIndexOf(this._storage, target);
+  if(targetIndex >= 0){this._storage.splice(targetIndex, 1);}
+  else{return target + " is not in the set!";}
 };
 
-// superReduce = function(obj, iterator, initialValue) {
-//   if (initialValue === undefined) initialValue = 0;
+ superIndexOf = function(array, target){
+    var result = -1;
 
-//   var result = initialValue;
+    _.each(array, function(item, index) {
+      if(_.isFunction(target) && _.isFunction(item)){
+        if(target.toString() === item.toString() && result === -1){
+          result = index;
+        }
+      } else if (_.isEqual(item, target) && result === -1){
+        result = index;
+      }
+    }, this);
 
-//   _.each(obj, function (item){
-//     result = iterator(result, item);
-//   });
-
-//   return result;
-// };
-
-  // Supercontains = function(collection, target) {
-  //   return _.reduce(collection, function(wasFound, item){
-  //     if(wasFound){
-  //       return true;
-  //     }
-  //     if(_.isFunction(target) && _.isFunction(item)){
-  //       return target.toString() === item.toString();
-  //     } else {
-  //       _.isEqual(item, target);
-  //     }
-
-  //     // return item === target;
-  //   }, false);
-  // };
+    return result;
+  };

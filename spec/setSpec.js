@@ -34,7 +34,16 @@ describe("set", function() {
     expect(set._storage.length).toEqual(1);
   });
 
+  it("should remove a value from the set", function(){
+    set.add('Toyota');
+    set.remove('Toyota');
+    expect(set.contains('Toyota')).toBe(false);
+  });
 
+  it("shouldn't remove something not in the set", function(){
+    set.remove('Ford');
+    expect(set.remove('Ford')).toBe('Ford is not in the set!');
+  });
   //
   //
   //
