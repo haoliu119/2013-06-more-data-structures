@@ -29,5 +29,13 @@ describe("linkedList", function() {
     expect(linkedList.head.value).toEqual('cat');
   });
 
+  it("removeHead should return value of head; head should point to next node", function(){
+    linkedList.addToTail('cat');
+    linkedList.addToTail('dog');
+    linkedList.addToTail('dolphin');
+    expect(linkedList.removeHead()).toEqual('cat');
+    expect(linkedList.head.value).toEqual('dog');
+  });
+
   // add more tests here to test the functionality of linkedList
 });
