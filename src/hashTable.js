@@ -7,18 +7,46 @@ var HashTable = function(){
   //   limitedArray.set(3, 'hi');
   //   limitedArray.get(3); // alerts 'hi'
   //
+
+  // this._storage is initialized as an object with .get .set methods,
+  // and private variable storage [], private function checklimit
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(){
+HashTable.prototype.insert = function(key, value){
+  var index = getIndexBelowMaxForKey(key, this._limit);
+  // if slot in array has not been assigned:
+  var slot = this._storage.get(index);
+  if(slot === undefined){
+    this._storage.set(index, [[key, value]]);
+  }
+
+  // console.log(this._storage);
+
+   // we check if there's a single KVP with same key, in which case we overwrite:
+  // else if(!Array.isArray(pair[0])){
+  //   if(pair[0] === key){
+  //     this.write(index, key, value);
+  //   }
+  //   // else we have a collision:
+  // } else {
+  //   this._storage.set(index, [].push(pair[0]));
+  //   // pair = this._storage.get(index);
+  //   _.each(this._storage.get(index), function(item){
+
+  //   });
+  // }
+};
+// key === pair[0]
+
+
+HashTable.prototype.retrieve = function(key){
 };
 
-HashTable.prototype.retrieve = function(){
+HashTable.prototype.remove = function(key){
 };
 
-HashTable.prototype.remove = function(){
+HashTable.prototype.write = function(index, key, value){
+  this._storage.set(index, [key, value]);
 };
 
-// NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
-// Start by loading those files up and playing with the functions it provides.
-// You don't need to understand how they work, only their interface is important to you

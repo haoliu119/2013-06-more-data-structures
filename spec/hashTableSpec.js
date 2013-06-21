@@ -11,5 +11,9 @@ describe("hashTable", function() {
     expect(hashTable.remove).toEqual(jasmine.any(Function));
   });
 
-  // add more tests here to test the functionality of hashTable
+  it("should add a key-value pair to the array", function(){
+    hashTable.insert('zebra', 'pink');
+    hashTable._storage.display();
+    expect().toEqual(0);
+  });
 });

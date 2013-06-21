@@ -11,10 +11,10 @@
 //   limitedArray.set(3, 'hi');
 //   limitedArray.get(3); // returns 'hi'
 
-var makeLimitedArray = function(limit){
-  var storage = [];
+var makeLimitedArray = function(limit){   // returns limitedArray object, 
+  var storage = []; // private storage array in the HashTable object, which we modify with .set and .get
 
-  var limitedArray = {};
+  var limitedArray = {};  // the HashTable object created
   limitedArray.get = function(index){
     checkLimit(index);
     return storage[index];
@@ -22,6 +22,10 @@ var makeLimitedArray = function(limit){
   limitedArray.set = function(index, value){
     checkLimit(index);
     storage[index] = value;
+  };
+
+  limitedArray.display = function (){
+    console.log(storage);
   };
 
   var checkLimit = function(index){
