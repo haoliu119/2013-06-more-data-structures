@@ -4,7 +4,17 @@ var makeLinkedList = function(){
   newLinkedList.head = null;
   newLinkedList.tail = null;
 
-  newLinkedList.addToTail = function(){
+  newLinkedList.addToTail = function(value){
+    var newNode = makeNode(value);
+    if(!newLinkedList.head){
+      newLinkedList.head = newNode;
+    }
+    if(newLinkedList.tail){
+      newLinkedList.tail.next = newNode;
+    }
+
+    newLinkedList.tail = newNode;
+
   };
 
   newLinkedList.removeHead = function(){
@@ -22,7 +32,9 @@ var makeNode = function(value){
   newNode.next = null;
 
   newNode.removeNextNode = function(){
+    newNode.next = null; // what if we use this.next?
   };
 
   return newNode;
 };
+
