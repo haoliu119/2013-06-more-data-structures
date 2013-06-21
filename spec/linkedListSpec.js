@@ -1,6 +1,8 @@
 describe("linkedList", function() {
   var linkedList;
 
+  animals = ['cat', 'dog', 'dolphin'];
+
   beforeEach(function() {
     linkedList = makeLinkedList();
   });
