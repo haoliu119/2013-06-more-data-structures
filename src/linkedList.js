@@ -24,13 +24,13 @@ var makeLinkedList = function(){
   newLinkedList.contains = function(value){
     //base case:
     var contain = function(node){
-      console.log("node: " + node);
+      console.log("node: " + node.value);
       if(node.value === value){
         return true;
       } else if (!node.next){
         return false;
       } else {
-        contain(node.next);
+        return contain(node.next);
       }
       // return node.value === value;
     };

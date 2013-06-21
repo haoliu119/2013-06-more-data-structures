@@ -43,7 +43,7 @@ describe("linkedList", function() {
     expect(linkedList.contains('monkey')).toBe(false);
   });
 
-  it("it should contain values we add", function(){
+  it("it should contain values from linked nodes", function(){
     linkedList.addToTail('cat');
     linkedList.addToTail('dog');
     linkedList.addToTail('dolphin');
