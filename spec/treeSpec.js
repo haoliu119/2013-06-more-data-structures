@@ -22,9 +22,23 @@ describe("tree", function() {
     expect(tree.children[0].value).toEqual('cat');
   });
 
-  it("should add children to children", function(){
+  it("should adds children", function(){
     tree.addChild('shark', 'dog', 'cat');
-  expect(tree.children.length).toEqual(3);
+    expect(tree.children.length).toEqual(3);
+  });
+
+  it("should adds children to children", function(){
+    tree.addChild('shark', 'bear', 'dog', 'cat');
+    tree.children[1].addChild('pig', 'bat');
+    expect(tree.children[1].children[0].value).toEqual('pig');
+  });
+
+  it("tree.contains should return true for values that exist in the tree, and false otherwise", function(){
+    tree.addChild('shark', 'bear', 'dog', 'cat');
+    tree.children[1].addChild('pig', 'bat');
+    expect(tree.contains('bat')).toBe(true);
+    expect(tree.contains('cat')).toBe(true);
+    expect(tree.contains('orchid')).toBe(false);
   });
 
 });
