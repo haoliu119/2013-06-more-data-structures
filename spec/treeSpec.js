@@ -1,5 +1,6 @@
 describe("tree", function() {
   var tree;
+  var animals = ['shark', 'dog', 'cat'];
 
   beforeEach(function() {
     tree = makeTree();
@@ -21,6 +22,9 @@ describe("tree", function() {
     expect(tree.children[0].value).toEqual('cat');
   });
 
-
+  it("should add children to children", function(){
+    tree.addChild('shark', 'dog', 'cat');
+  expect(tree.children.length).toEqual(3);
+  });
 
 });
