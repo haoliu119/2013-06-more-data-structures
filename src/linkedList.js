@@ -4,13 +4,41 @@ var makeLinkedList = function(){
   newLinkedList.head = null;
   newLinkedList.tail = null;
 
-  newLinkedList.addToTail = function(){
+  newLinkedList.addToTail = function(value){
+    var newNode = makeNode(value);
+    if(!newLinkedList.head){
+      newLinkedList.head = newNode;
+    }
+    if(newLinkedList.tail){
+      newLinkedList.tail.next = newNode;
+    }
+    newLinkedList.tail = newNode;
   };
 
   newLinkedList.removeHead = function(){
+    var tempHead = newLinkedList.head.value;
+    newLinkedList.head = newLinkedList.head.next;
+    return tempHead;
   };
 
-  newLinkedList.contains = function(){
+  newLinkedList.contains = function(value){
+    var recurseContain = function(node){
+      return (node.value === value) || !!(node.next && recurseContain(node.next));
+      // the previous line is equivalent to the following:
+      // if(node.value === value){
+      //   return true;
+      // } else if (!node.next){
+      //   return false;
+      // } else {
+      //   return recurseContain(node.next);
+      // }
+    };
+
+    if(!newLinkedList.head){
+      return false;
+    } else {
+      return recurseContain(newLinkedList.head);
+    }
   };
 
   return newLinkedList;
@@ -22,7 +50,9 @@ var makeNode = function(value){
   newNode.next = null;
 
   newNode.removeNextNode = function(){
+    newNode.next = null; // what if we use this.next?
   };
 
   return newNode;
 };
+
