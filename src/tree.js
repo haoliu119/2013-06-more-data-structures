@@ -16,7 +16,7 @@ treeMethods.addChild = function(){
   }
   var args = Array.prototype.slice.call(arguments);
   _(args).each(function(item){
-      this.children.push(makeTree(item));
+    this.children.push(makeTree(item));
   }, this);
 };
 
