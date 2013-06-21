@@ -11,7 +11,6 @@ var makeTree = function(value){
 var treeMethods = {};
 
 treeMethods.addChild = function(){
-  // !this.children && this.children = [];
   if (!this.children){
     this.children = [];
   }
@@ -21,10 +20,13 @@ treeMethods.addChild = function(){
   }, this);
 };
 
-// treeMethods.addChildren = function(array){
-//   this.addChild.apply(this, arguments);
-// };
+treeMethods.contains = function(value, flag){
+  flag = flag || this.value === value;
 
-treeMethods.contains = function(value){
-
+  if (!flag){
+    _(this.children).each(function(child){
+      flag = child.contains(value, flag);
+    });
+  }
+  return flag;
 };
