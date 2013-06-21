@@ -11,5 +11,16 @@ describe("tree", function() {
     expect('value' in tree).toBe(true);
   });
 
-  // Add more tests here to test the functionality of tree.
+  it("the children of an empty tree should be undefined",function(){
+    expect(tree.children).toEqual(undefined);
+  });
+
+  it(".addChild should create a child",function(){
+    tree.addChild('cat');
+    expect(!!tree.children.length).toBe(true);
+    expect(tree.children[0].value).toEqual('cat');
+  });
+
+
+
 });
