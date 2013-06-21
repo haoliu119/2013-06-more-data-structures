@@ -37,5 +37,20 @@ describe("linkedList", function() {
     expect(linkedList.head.value).toEqual('dog');
   });
 
+  it("it should contain a value we add and should not contain a value we didn't add", function(){
+    linkedList.addToTail('cat');
+    expect(linkedList.contains('cat')).toBe(true);
+    expect(linkedList.contains('monkey')).toBe(false);
+  });
+
+  it("it should contain values we add", function(){
+    linkedList.addToTail('cat');
+    linkedList.addToTail('dog');
+    linkedList.addToTail('dolphin');
+    expect(linkedList.contains('cat')).toBe(true);
+    expect(linkedList.contains('dog')).toBe(true);
+    expect(linkedList.contains('monkey')).toBe(false);
+  });
+
   // add more tests here to test the functionality of linkedList
 });

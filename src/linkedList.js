@@ -12,9 +12,7 @@ var makeLinkedList = function(){
     if(newLinkedList.tail){
       newLinkedList.tail.next = newNode;
     }
-
     newLinkedList.tail = newNode;
-
   };
 
   newLinkedList.removeHead = function(){
@@ -23,7 +21,25 @@ var makeLinkedList = function(){
     return tempHead;
   };
 
-  newLinkedList.contains = function(){
+  newLinkedList.contains = function(value){
+    //base case:
+    var contain = function(node){
+      console.log("node: " + node);
+      if(node.value === value){
+        return true;
+      } else if (!node.next){
+        return false;
+      } else {
+        contain(node.next);
+      }
+      // return node.value === value;
+    };
+
+    if(!newLinkedList.head){
+      return false;
+    } else {
+      return contain(newLinkedList.head);
+    }
   };
 
   return newLinkedList;
