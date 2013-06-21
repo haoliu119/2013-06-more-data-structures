@@ -22,22 +22,22 @@ var makeLinkedList = function(){
   };
 
   newLinkedList.contains = function(value){
-    //base case:
-    var contain = function(node){
-      return node.value === value || !!(node.next && contain(node.next));
+    var recurseContain = function(node){
+      return (node.value === value) || !!(node.next && recurseContain(node.next));
+      // the previous line is equivalent to the following:
       // if(node.value === value){
       //   return true;
       // } else if (!node.next){
       //   return false;
       // } else {
-      //   return contain(node.next);
+      //   return recurseContain(node.next);
       // }
     };
 
     if(!newLinkedList.head){
       return false;
     } else {
-      return contain(newLinkedList.head);
+      return recurseContain(newLinkedList.head);
     }
   };
 

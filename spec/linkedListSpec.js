@@ -1,7 +1,12 @@
 describe("linkedList", function() {
-  var linkedList;
+  var linkedList,
+      animals = ['cat', 'dog', 'dolphin'];
 
-  animals = ['cat', 'dog', 'dolphin'];
+  var animalAdder = function(animals, list){
+    _(animals).each(function(item){
+      list.addToTail(item);
+    });
+  };
 
   beforeEach(function() {
     linkedList = makeLinkedList();
@@ -24,17 +29,13 @@ describe("linkedList", function() {
   });
 
   it("after adding three nodes, head --> node 1; tail --> node 3", function(){
-    linkedList.addToTail('cat');
-    linkedList.addToTail('dog');
-    linkedList.addToTail('dolphin');
+    animalAdder(animals, linkedList);
     expect(linkedList.tail.value).toEqual('dolphin');
     expect(linkedList.head.value).toEqual('cat');
   });
 
   it("removeHead should return value of head; head should point to next node", function(){
-    linkedList.addToTail('cat');
-    linkedList.addToTail('dog');
-    linkedList.addToTail('dolphin');
+    animalAdder(animals, linkedList);
     expect(linkedList.removeHead()).toEqual('cat');
     expect(linkedList.head.value).toEqual('dog');
   });
@@ -46,9 +47,7 @@ describe("linkedList", function() {
   });
 
   it("it should contain values from linked nodes", function(){
-    linkedList.addToTail('cat');
-    linkedList.addToTail('dog');
-    linkedList.addToTail('dolphin');
+    animalAdder(animals, linkedList);
     expect(linkedList.contains('cat')).toBe(true);
     expect(linkedList.contains('dog')).toBe(true);
     expect(linkedList.contains('monkey')).toBe(false);
