@@ -19,6 +19,15 @@ HashTable.prototype.insert = function(key, value){
   var slot = this._storage.get(index);
   if(slot === undefined){
     this._storage.set(index, [[key, value]]);
+  } else {
+    var found = false;
+    _.each(slot, function(item){
+      if(item[0] === key){
+        item[1] = value;
+        found = true;
+      }
+    });
+    found || slot.push([key, value]);
   }
 
   // console.log(this._storage);
