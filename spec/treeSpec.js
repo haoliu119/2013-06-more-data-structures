@@ -3,7 +3,7 @@ describe("tree", function() {
   var animals = ['shark', 'dog', 'cat'];
 
   beforeEach(function() {
-    tree = makeTree();
+    tree = makeTree('trunk');
   });
 
   it("should have methods named 'addChild' and 'contains', and a property named 'value'", function() {
@@ -22,15 +22,16 @@ describe("tree", function() {
     expect(tree.children[0].value).toEqual('cat');
   });
 
-  it("should adds children", function(){
+  it("should add children", function(){
     tree.addChild('shark', 'dog', 'cat');
     expect(tree.children.length).toEqual(3);
   });
 
-  it("should adds children to children", function(){
+  it("should add subtrees with parent property", function(){
     tree.addChild('shark', 'bear', 'dog', 'cat');
     tree.children[1].addChild('pig', 'bat');
     expect(tree.children[1].children[0].value).toEqual('pig');
+    expect(tree.children[1].parent.value).toEqual('trunk');
   });
 
   it ('contains should find child at first level of tree', function(){
