@@ -4,6 +4,9 @@ var makeLinkedList = function(){
   newLinkedList.head = null;
   newLinkedList.tail = null;
 
+    // .addToHead method ++++++++++
+
+
   newLinkedList.addToTail = function(value){
     var newNode = makeNode(value);
     if(!newLinkedList.head){
@@ -20,6 +23,9 @@ var makeLinkedList = function(){
     newLinkedList.head = newLinkedList.head.next;
     return tempHead;
   };
+
+  // .removeTail method ++++++++++
+
 
   newLinkedList.contains = function(value){
     var recurseContain = function(node){
@@ -48,6 +54,8 @@ var makeNode = function(value){
   var newNode = {};
   newNode.value = value;
   newNode.next = null;
+  // need new property .previous ++++++++++
+
 
   newNode.removeNextNode = function(){
     newNode.next = null; // what if we use this.next?
