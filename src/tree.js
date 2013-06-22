@@ -2,8 +2,7 @@ var makeTree = function(value, parent){
   var newTree = {};
 
   newTree.value = value || undefined;
-  newTree.children = undefined;
-  // add .parent property
+  newTree.children = undefined; // or an array of child-trees
   newTree.parent = parent || null;
 
   _.extend(newTree, treeMethods);
@@ -12,7 +11,6 @@ var makeTree = function(value, parent){
 
 var treeMethods = {};
 
-// refactor .addChild to incorporate .parent property
 treeMethods.addChild = function(){
   if (!this.children){
     this.children = [];
@@ -35,5 +33,10 @@ treeMethods.contains = function(value, flag){
   return flag;
 };
 
-// add .removeFromParent method
-// 
+treeMethods.removeFromParent = function(){
+  var parent = this.parent;
+  var index = _(parent.children).indexOf(this);
+  console.log(index);
+  parent.children.splice(index, 1);
+  this.parent = null;
+};

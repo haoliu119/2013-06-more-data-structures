@@ -27,7 +27,7 @@ describe("tree", function() {
     expect(tree.children.length).toEqual(3);
   });
 
-  it("should add subtrees with parent property", function(){
+  it("should add subtrees with a parent property", function(){
     tree.addChild('shark', 'bear', 'dog', 'cat');
     tree.children[1].addChild('pig', 'bat');
     expect(tree.children[1].children[0].value).toEqual('pig');
@@ -50,6 +50,16 @@ describe("tree", function() {
     expect(tree.contains('rat')).toBe(true);
     expect(tree.contains('dragon')).toBe(true);
     expect(tree.contains('orchid')).toBe(false);
+  });
+
+  it("should remove a child and its children using removeFromParent method", function(){
+    tree.addChild('shark', 'bear', 'dog', 'cat');
+    tree.children[1].addChild('pig', 'bat');
+    tree.children[0].addChild('horse', 'dragon');
+    tree.children[1].children[0].addChild('rat');
+    tree.children[1].children[0].removeFromParent();
+    expect(tree.contains('pig')).toBe(false);
+    expect(tree.contains('rat')).toBe(false);
   });
 
 });
