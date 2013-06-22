@@ -14,9 +14,9 @@ var HashTable = function(){
 };
 
 HashTable.prototype.insert = function(key, value){
-  var index = getIndexBelowMaxForKey(key, this._limit);
+  var index = this.getSlot(key)[0];
+  var slot = this.getSlot(key)[1];
   // if slot in array has not been assigned:
-  var slot = this._storage.get(index);
   if(slot === undefined){
     this._storage.set(index, [[key, value]]);
   } else {
@@ -33,8 +33,8 @@ HashTable.prototype.insert = function(key, value){
 
 // retrieve returns value associated with the given key, otherwise returns undefined.
 HashTable.prototype.retrieve = function(key){
-  var index = getIndexBelowMaxForKey(key, this._limit);
-  var slot = this._storage.get(index);
+  // var index = getIndexBelowMaxForKey(key, this._limit);
+  var slot = this.getSlot(key)[1];
 
   return slot ? _.reduce(slot, function(memo, value){
     value[0] === key && (memo = value[1]);
@@ -43,9 +43,23 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(key){
+  
+
+
+  // var slot = this.getSlot(key)[1];
+  // var index = _.reduce(slot, function(memo, pair, i){
+  //   return (pair[0] === key) ? i : memo;
+  // }, -1);
+
+  // // return index ? slot.splice(index, 1) : index;
+
+  // if (index >= 0) {
+  //   slot.splice(index,1);
+  // }
 };
 
-HashTable.prototype.write = function(index, key, value){
-  this._storage.set(index, [key, value]);
+HashTable.prototype.getSlot = function(key){
+  var index = getIndexBelowMaxForKey(key, this._limit);
+  return [index, this._storage.get(index)];
 };
 

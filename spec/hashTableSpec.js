@@ -26,6 +26,20 @@ describe("hashTable", function() {
     // hashTable._storage.display();
   });
 
+  it("should remove a key-value pair", function(){
+    hashTable.insert('monkey', 'green');
+    hashTable.insert('elephant', 'clear');
+    hashTable.insert('zebra', 'stripey');
+    hashTable._storage.display();
+    // expect(hashTable.remove('donkey')).toEqual(-1);
+    hashTable.remove('monkey')
+    expect(hashTable.retrieve('monkey')).toEqual(undefined);
+    expect(hashTable.retrieve('elephant')).toEqual('clear');
+
+    hashTable._storage.display();
+
+  });
+
 
 // hashTable.insert('monkey', 'clear');
 // elephant and monkey both hash to 3
