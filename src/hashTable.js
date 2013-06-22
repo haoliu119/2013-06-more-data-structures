@@ -43,19 +43,18 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(key){
-  
-
-
   // var slot = this.getSlot(key)[1];
-  // var index = _.reduce(slot, function(memo, pair, i){
-  //   return (pair[0] === key) ? i : memo;
-  // }, -1);
+  // var flattened = _(slot).flatten();
+  // var index = (_(flattened).indexOf(key)/2);
+  // slot.splice(index, 1);
 
-  // // return index ? slot.splice(index, 1) : index;
-
-  // if (index >= 0) {
-  //   slot.splice(index,1);
-  // }
+  var slot = this.getSlot(key)[1];
+  var index = _.reduce(slot, function(memo, pair, i){
+    return (pair[0] === key) ? i : memo;
+  }, -1);
+  if (index >= 0) {
+    slot.splice(index,1);
+  }
 };
 
 HashTable.prototype.getSlot = function(key){

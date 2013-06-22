@@ -30,18 +30,25 @@ describe("hashTable", function() {
     hashTable.insert('monkey', 'green');
     hashTable.insert('elephant', 'clear');
     hashTable.insert('zebra', 'stripey');
-    hashTable._storage.display();
+    hashTable.insert('goat', 'blue');
+    hashTable.insert('tiger', 'also stripey');
+    hashTable.insert('moose', 'brown');
+    // hashTable._storage.display();
     // expect(hashTable.remove('donkey')).toEqual(-1);
-    hashTable.remove('monkey')
+    hashTable.remove('tiger');
+    hashTable.remove('monkey');
+    hashTable.remove('moose');
     expect(hashTable.retrieve('monkey')).toEqual(undefined);
+    expect(hashTable.retrieve('tiger')).toEqual(undefined);
+    expect(hashTable.retrieve('moose')).toEqual(undefined);
     expect(hashTable.retrieve('elephant')).toEqual('clear');
 
-    hashTable._storage.display();
+    // hashTable._storage.display();
 
   });
 
 
 // hashTable.insert('monkey', 'clear');
-// elephant and monkey both hash to 3
+// elephant, goat, tiger, monkey both hash to 3
 
 });
