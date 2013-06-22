@@ -34,7 +34,7 @@ var makeLinkedList = function(){
   //    newTail.previous to this.tail
   //    repoint tail to newTail
 
-  newLinkedList.addtoTail = function(value){
+  newLinkedList.addToTail = function(value){
     var newTail = makeNode(value);
     if(!this.tail){
       this.head = this.tail = newTail;

@@ -8,6 +8,14 @@ describe("linkedList", function() {
     });
   };
 
+  var randomNumArray = function(index){
+    nums = [];
+    for(var i = 0; i < index; i++){
+      nums.push(Math.floor(Math.random()*100));
+    }
+    return nums;
+  };
+
   beforeEach(function() {
     linkedList = makeLinkedList();
   });
@@ -46,12 +54,58 @@ describe("linkedList", function() {
     expect(linkedList.contains('monkey')).toBe(false);
   });
 
-  it("it should contain values from linked nodes", function(){
-    animalAdder(animals, linkedList);
-    expect(linkedList.contains('cat')).toBe(true);
-    expect(linkedList.contains('dog')).toBe(true);
-    expect(linkedList.contains('monkey')).toBe(false);
+  it("should add to the end of the list", function(){
+    var numbers = randomNumArray(4);
+    _(numbers).each(function(item){
+      linkedList.addToTail(item);
+    });
+    expect(_(numbers).map(function(number){
+      return linkedList.contains(number);
+    })).toEqual([true, true, true, true]);
   });
 
-  // add more tests here to test the functionality of linkedList
+  it("should add to the beginning of the list", function(){
+    var numbers = randomNumArray(4);
+    _(numbers).each(function(item){
+      linkedList.addToHead(item);
+    });
+    expect(_(numbers).map(function(number){
+      return linkedList.contains(number);
+    })).toEqual([true, true, true, true]);
+  });
+
+  it('.removeHead method should return values removed from list; list should not contain removed values afterwards', function(){
+    var numbers = randomNumArray(4);
+    _(numbers).each(function(item){
+      linkedList.addToTail(item);
+    });
+
+    var removeList = numbers.slice(0,2);
+    var removeResults = _(removeList).map(function(item){
+      return linkedList.removeHead(item);
+    });
+
+    expect(removeResults).toEqual(removeList);
+    expect(_(numbers).map(function(number){
+      return linkedList.contains(number);
+    })).toEqual([false, false, true, true]);
+  });
+
+  it('.removeTail method should return values removed from list; list should not contain removed values afterwards', function(){
+    var numbers = randomNumArray(4);
+    _(numbers).each(function(item){
+      linkedList.addToHead(item); // addToHead will produce list in reverse order
+    });
+
+    var removeList = numbers.slice(0,2);
+    var removeResults = _(removeList).map(function(item){
+      return linkedList.removeTail(item); // testing removeTail
+    });
+
+    expect(removeResults).toEqual(removeList);
+    expect(_(numbers).map(function(number){
+      return linkedList.contains(number);
+    })).toEqual([false, false, true, true]);
+  });
+
 });
