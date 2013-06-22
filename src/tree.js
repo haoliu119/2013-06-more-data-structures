@@ -36,7 +36,6 @@ treeMethods.contains = function(value, flag){
 treeMethods.removeFromParent = function(){
   var parent = this.parent;
   var index = _(parent.children).indexOf(this);
-  console.log(index);
   parent.children.splice(index, 1);
   this.parent = null;
 };

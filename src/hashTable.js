@@ -1,5 +1,6 @@
 var HashTable = function(){
   this._limit = 8;
+  this._capacity = 0;
 
   // Use a limited array to store inserted elements.
   // It'll keep you from using too much space. Usage:
@@ -18,6 +19,7 @@ HashTable.prototype.insert = function(key, value){
   var slot = this.getSlot(key)[1];
   // if slot in array has not been assigned:
   if(slot === undefined){
+    this._capacity++;
     this._storage.set(index, [[key, value]]);
   } else {
     var found = false;
@@ -27,9 +29,26 @@ HashTable.prototype.insert = function(key, value){
         found = true;
       }
     });
-    found || slot.push([key, value]);
+    if(!found){
+      slot.push([key, value]);
+      this._capacity++;
+    }
+  }
+
+// /*
+  if(this._capacity / this._limit > 0.75){
+    var oldStorage = this._storage.returnStorage();
+    this._capacity = 0;
+    this._limit = this._limit * 2;
+    this._storage = makeLimitedArray(this._limit);
+    _(oldStorage).each(function(slot){
+        _(slot).each(function(pair){
+          pair !== undefined && this.insert(pair[0], pair[1]);
+        }, this);
+    }, this);
   }
 };
+
 
 // retrieve returns value associated with the given key, otherwise returns undefined.
 HashTable.prototype.retrieve = function(key){
@@ -53,8 +72,10 @@ HashTable.prototype.remove = function(key){
     return (pair[0] === key) ? i : memo;
   }, -1);
   if (index >= 0) {
+    this._capacity--;
     slot.splice(index,1);
   }
+  return index;
 };
 
 HashTable.prototype.getSlot = function(key){
