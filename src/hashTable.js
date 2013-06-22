@@ -29,27 +29,17 @@ HashTable.prototype.insert = function(key, value){
     });
     found || slot.push([key, value]);
   }
-
-  // console.log(this._storage);
-
-   // we check if there's a single KVP with same key, in which case we overwrite:
-  // else if(!Array.isArray(pair[0])){
-  //   if(pair[0] === key){
-  //     this.write(index, key, value);
-  //   }
-  //   // else we have a collision:
-  // } else {
-  //   this._storage.set(index, [].push(pair[0]));
-  //   // pair = this._storage.get(index);
-  //   _.each(this._storage.get(index), function(item){
-
-  //   });
-  // }
 };
-// key === pair[0]
 
-
+// retrieve returns value associated with the given key, otherwise returns undefined.
 HashTable.prototype.retrieve = function(key){
+  var index = getIndexBelowMaxForKey(key, this._limit);
+  var slot = this._storage.get(index);
+
+  return slot ? _.reduce(slot, function(memo, value){
+    value[0] === key && (memo = value[1]);
+    return memo;
+  }, undefined, this) : undefined;
 };
 
 HashTable.prototype.remove = function(key){

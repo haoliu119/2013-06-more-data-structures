@@ -23,7 +23,6 @@ var makeLimitedArray = function(limit){   // returns limitedArray object,
     checkLimit(index);
     storage[index] = value;
   };
-
   limitedArray.display = function (){
     console.log(storage);
   };
