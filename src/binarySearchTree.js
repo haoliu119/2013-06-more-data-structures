@@ -17,8 +17,18 @@ makeBinarySearchTree.prototype.insert = function(value){
 	}
 };
 
-makeBinarySearchTree.prototype.contains = function(value){
-
+makeBinarySearchTree.prototype.contains = function(value, flag){
+	flag = flag || false;
+	if (!flag){
+		if (this.value === value){
+			flag = true;
+		}else{
+			flag = _([this.left, this.right]).reduce(function(flag, subTree){
+				return !subTree ? flag : subTree.contains(value, flag);
+			},flag);
+		}
+	}
+	return flag;
 };
 
 makeBinarySearchTree.prototype.depthFirstLog = function(value){
