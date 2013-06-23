@@ -13,8 +13,8 @@
 
 var makeLimitedArray = function(limit){   // returns limitedArray object, 
   var storage = []; // private storage array in the HashTable object, which we modify with .set and .get
-
   var limitedArray = {};  // the HashTable object created
+
   limitedArray.get = function(index){
     checkLimit(index);
     return storage[index];

@@ -1,5 +1,5 @@
 var HashTable = function(){
-  this._limit = 8;
+  this._limit = 1;
   this._capacity = 0;
 
   // Use a limited array to store inserted elements.
@@ -35,17 +35,8 @@ HashTable.prototype.insert = function(key, value){
     }
   }
 
-// /*
   if(this._capacity / this._limit > 0.75){
-    var oldStorage = this._storage.returnStorage();
-    this._capacity = 0;
-    this._limit = this._limit * 2;
-    this._storage = makeLimitedArray(this._limit);
-    _(oldStorage).each(function(slot){
-        _(slot).each(function(pair){
-          pair !== undefined && this.insert(pair[0], pair[1]);
-        }, this);
-    }, this);
+    this.rehash(1);
   }
 };
 
@@ -75,6 +66,9 @@ HashTable.prototype.remove = function(key){
     this._capacity--;
     slot.splice(index,1);
   }
+  if(this._capacity / this._limit < 0.25){
+    this.rehash(0);
+  }
   return index;
 };
 
@@ -83,3 +77,22 @@ HashTable.prototype.getSlot = function(key){
   return [index, this._storage.get(index)];
 };
 
+
+HashTable.prototype.rehash = function(mode){
+  // mode is either 1 or 0.
+  // 1 corresponds to doubling size of hashtable
+  // 0 corresponds to halving size of hashtable
+  this._limit = mode ? this._limit * 2 : this._limit / 2;
+  var oldStorage = this._storage.returnStorage();
+  this._capacity = 0;
+  this._storage = makeLimitedArray(this._limit);
+  _(oldStorage).each(function(slot){
+    _(slot).each(function(pair){
+      pair !== undefined && this.insert(pair[0], pair[1]);
+    }, this);
+  }, this);
+};
+
+
+// console.log('capacity: ' + this._capacity);
+// console.log('limit: ' + this._limit);

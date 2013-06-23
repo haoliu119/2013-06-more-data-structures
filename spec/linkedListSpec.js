@@ -85,10 +85,12 @@ describe("linkedList", function() {
       return linkedList.removeHead(item);
     });
 
-    expect(removeResults).toEqual(removeList);
-    expect(_(numbers).map(function(number){
+    var results = _(numbers).map(function(number){
       return linkedList.contains(number);
-    })).toEqual([false, false, true, true]);
+    });
+    // if(results === [true, false, true, true]) debugger;
+    expect(removeResults).toEqual(removeList);
+    expect(results).toEqual([false, false, true, true]);
   });
 
   it('.removeTail method should return values removed from list; list should not contain removed values afterwards', function(){
