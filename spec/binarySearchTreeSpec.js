@@ -2,14 +2,21 @@ describe("binarySearchTree", function() {
   var binarySearchTree;
   var randomNumArray = function(index, limit){
     limit = limit || index;
-    nums = [];
+    var nums = [];
     for(var i = 0; i < index; i++){
       nums.push(Math.floor(Math.random()*limit));
     }
     return nums;
   };
-  var shuffledNumArray = function(index, limit){
-    return _.shuffle(randomNumArray(index, limit));
+  var orderedNumArray = function(limit){
+    var nums = [];
+    for(var i=0; i < limit; i++){
+      nums.push(i);
+    }
+    return nums;
+  };
+  var shuffledNumArray = function(limit){
+    return _.shuffle(orderedNumArray(limit));
   };
 
   beforeEach(function() {
@@ -24,29 +31,46 @@ describe("binarySearchTree", function() {
 
   it("should insert values correctly", function() {
     var insertArray = shuffledNumArray(10);
-    // console.log(insertArray);
+
     _.each(insertArray, function(number){
       binarySearchTree.insert(number);
     });
-    // console.log(binarySearchTree);
-    expect(binarySearchTree.value).toEqual(insertArray[0]);
+
+    expect(binarySearchTree.contains(insertArray[Math.floor(Math.random()*10)])).toBe(true);
   });
 
   it(".contains should return true for all value inserted, and false otherwise", function() {
-    var insertArray = shuffledNumArray(22);
-    // console.log(insertArray);
+    var insertArray = shuffledNumArray(10);
     _.each(insertArray, function(number){
       binarySearchTree.insert(number);
     });
     var result = _.map(insertArray,function(number){
       return binarySearchTree.contains(number);
     });
-    // console.log(result);
     expect(_.every(result,_.identity)).toEqual(true);
+
     result = _.map([23,54,21],function(number){
       return binarySearchTree.contains(number);
     });
     expect(_.every(result,_.identity)).toEqual(false);
+  });
+
+  it('.depthFirstLog should accepts a callback and executes it on every value contained in the tree', function(){
+    var func = function(value){
+      return value * 2;
+    };
+    var insertArray = shuffledNumArray(10);
+    _.each(insertArray, function(number){
+      binarySearchTree.insert(number);
+    });
+
+    binarySearchTree.depthFirstLog(func);
+    var resultArray = _.map(insertArray, func);
+
+    var containsResult = _.map(resultArray,function(number){
+      return binarySearchTree.contains(number);
+    });
+    expect(_.every(containsResult,_.identity)).toEqual(true);
   });
   // add more tests here to test the functionality of binarySearchTree
 });

@@ -2,11 +2,11 @@ var makeBinarySearchTree = function(value){
 	// this.parent = null;
 	this.left = null;
 	this.right = null;
-	this.value = value || null;
+	this.value = (value === undefined)? null : value;
 };
 
 makeBinarySearchTree.prototype.insert = function(value){
-	this.value = this.value || value;
+	this.value = (this.value === null)? value : this.value;
 	if (this.value !== value){
 		var direction = (value < this.value)? "left" : "right";
 		if (!this[direction]){
@@ -31,6 +31,8 @@ makeBinarySearchTree.prototype.contains = function(value, flag){
 	return flag;
 };
 
-makeBinarySearchTree.prototype.depthFirstLog = function(value){
-
+makeBinarySearchTree.prototype.depthFirstLog = function(func){
+	this.value = func(this.value);
+	this.left && this.left.depthFirstLog(func);
+	this.right && this.right.depthFirstLog(func);
 };
