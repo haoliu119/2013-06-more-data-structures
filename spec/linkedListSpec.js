@@ -8,10 +8,16 @@ describe("linkedList", function() {
     });
   };
 
-  var randomNumArray = function(index){
+  var randomNumArray = function(index,limit){ 
+    var randNumNoDuplicate = function(array){
+      var num = Math.floor(Math.random()*limit);
+      return _.contains(array, num)? randNumNoDuplicate(array) : num;
+    }
+
+    limit = limit || index;
     nums = [];
     for(var i = 0; i < index; i++){
-      nums.push(Math.floor(Math.random()*100));
+      nums.push(randNumNoDuplicate(nums));
     }
     return nums;
   };
@@ -79,7 +85,6 @@ describe("linkedList", function() {
     _(numbers).each(function(item){
       linkedList.addToTail(item);
     });
-
     var removeList = numbers.slice(0,2);
     var removeResults = _(removeList).map(function(item){
       return linkedList.removeHead(item);
@@ -88,7 +93,6 @@ describe("linkedList", function() {
     var results = _(numbers).map(function(number){
       return linkedList.contains(number);
     });
-    // if(results === [true, false, true, true]) debugger;
     expect(removeResults).toEqual(removeList);
     expect(results).toEqual([false, false, true, true]);
   });
@@ -98,7 +102,6 @@ describe("linkedList", function() {
     _(numbers).each(function(item){
       linkedList.addToHead(item); // addToHead will produce list in reverse order
     });
-
     var removeList = numbers.slice(0,2);
     var removeResults = _(removeList).map(function(item){
       return linkedList.removeTail(item); // testing removeTail
